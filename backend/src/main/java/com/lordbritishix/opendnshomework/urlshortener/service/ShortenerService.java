@@ -1,30 +1,22 @@
 package com.lordbritishix.opendnshomework.urlshortener.service;
 
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.Optional;
 import javax.transaction.Transactional;
-import com.lordbritishix.opendnshomework.urlshortener.model.Counter;
 import com.lordbritishix.opendnshomework.urlshortener.model.UrlMap;
-import com.lordbritishix.opendnshomework.urlshortener.repository.CounterRepository;
 import com.lordbritishix.opendnshomework.urlshortener.repository.UrlMapRepository;
-import com.lordbritishix.opendnshomework.urlshortener.utils.ShortenerUtil;
-import org.apache.commons.validator.routines.UrlValidator;
+import com.lordbritishix.opendnshomework.urlshortener.utils.SequenceGenerator;
+import com.lordbritishix.opendnshomework.urlshortener.utils.UrlShortenerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ShortenerService {
     private final UrlMapRepository urlMapRepository;
-    private final CounterRepository counterRepository;
 
     @Autowired
-    public ShortenerService(
-            UrlMapRepository urlMapRepository,
-            CounterRepository counterRepository) {
-        this.urlMapRepository = urlMapRepository;
-        this.counterRepository = counterRepository;
+    public ShortenerService(UrlMapRepository urlMapRepositoryy) {
+        this.urlMapRepository = urlMapRepositoryy;
     }
 
     @Transactional
@@ -34,11 +26,16 @@ public class ShortenerService {
             return URI.create(found.getMappedUrl());
         }
 
-        Counter counter = counterRepository.save(new Counter());
-        long seed = counter.getId();
-        String shortString = ShortenerUtil.createShortString(seed);
+        long seed = SequenceGenerator.nextId();
+        String shortString = UrlShortenerUtils.createShortString(seed);
         URI mappedUrl = URI.create(hostname + "/" + shortString);
-        long id = ShortenerUtil.toBase10(shortString);
+
+        long id = UrlShortenerUtils.toBase10(shortString);
+
+        // Collision - Throw an exception as we may need a better sequence generator
+        if (urlMapRepository.existsById(id)) {
+            throw new IllegalStateException("Id " + id + " with a different URL " + " is already present in the database.");
+        }
 
         UrlMap urlMap = new UrlMap(id, uri.toString(), mappedUrl.toString());
         urlMapRepository.save(urlMap);
@@ -48,20 +45,11 @@ public class ShortenerService {
 
     @Transactional
     public Optional<UrlMap> getShortUrl(String id) {
-        long key = ShortenerUtil.toBase10(id);
+        long key = UrlShortenerUtils.toBase10(id);
         if (!urlMapRepository.existsById(key)) {
             return Optional.empty();
         }
 
         return Optional.of(urlMapRepository.getOne(key));
-    }
-
-    public boolean isValidUrl(String base64EncodedUrl) {
-        try {
-            String decodedUrl = new String(Base64.getUrlDecoder().decode(base64EncodedUrl), StandardCharsets.UTF_8);
-            return UrlValidator.getInstance().isValid(decodedUrl);
-        } catch (IllegalArgumentException e ) {
-            return false;
-        }
     }
 }
