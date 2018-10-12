@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<body ng-app="urlshortener">
+    <div class="container" ng-controller="ShortenerController">
+        <div class="col-lg col-centered text-center">
+            <p>URL Shortener</p>
+            <input type="text" ng-model="url" class="input-sm paste-url-width spacing" placeholder="Past a link to shorten it"/>
+            <button ng-click="shorten()" class="btn btn-sm btn-info">Shorten</button>
+        </div>
+    </div>
+</body>
+
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+
+<script src="js/app/app.js"></script>
+<script src="js/app/ShortenerController.js"></script>
+<script src="js/app/ShortenerService.js"></script>
+
+<link rel="stylesheet" href="css/app/app.css"/>
+<link rel="stylesheet" href="css/lib/bootstrap.min.css"/>
+
+</html>
