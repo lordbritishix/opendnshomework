@@ -51,6 +51,7 @@ imposed by the phish tank rest service when the call volume is high.
 make the application immediately available to detect phishing sites.
 * The service updates the local copy of the phishing database every hour. It is done on a separate thread and is a 
 synchronized operation.
+* Uses streaming techniques when reading data and parsing json to conserve memory.
 
 ****Improvements and Known Quirks****
 * Polishing of the UI
