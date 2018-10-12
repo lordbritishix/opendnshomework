@@ -31,10 +31,12 @@ http://localhost:8080/
 ```
 
 ****Technologies Used****
-* Spring Boot, running embedded Jetty, using Hikari Connection Pooling
+* Java 8
+* Spring Boot, running on embedded Jetty, using Hikari Connection Pooling
 * Spring MVC
 * Spring JPA
 * Angular JS
+* Bootstrap
 * H2 Database (Embedded)
 
 ****Design Considerations****
