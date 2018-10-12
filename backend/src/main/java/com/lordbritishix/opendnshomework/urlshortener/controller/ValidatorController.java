@@ -32,7 +32,7 @@ public class ValidatorController {
                     "The provided URL is not valid. The URL must be base64-encoded and must conform with RFC 1738", false), HttpStatus.BAD_REQUEST);
         }
 
-        boolean isPhishingSite = phishTankService.isUrlSafe(UrlShortenerUtils.getUrl(base64EncodedUrl));
+        boolean isPhishingSite = phishTankService.isPhish(UrlShortenerUtils.getUrl(base64EncodedUrl));
         ValidatorResponse response = new ValidatorResponse(null, isPhishingSite);
 
         return new ResponseEntity<>(response, HttpStatus.OK);

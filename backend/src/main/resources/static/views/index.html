@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 <body ng-app="urlshortener">
     <div class="container" ng-controller="ShortenerController">
-        <div class="col-lg col-centered text-center">
-            <p>URL Shortener</p>
-            <input type="text" ng-model="url" class="input-sm paste-url-width spacing" placeholder="Past a link to shorten it"/>
-            <button ng-click="shorten()" class="btn btn-sm btn-info">Shorten</button>
-        </div>
+        <h2>URL Shortener</h2>
+        <form>
+            <div class="form-group">
+                <input type="text" ng-model="url" ng-keyup="clearState()" class="form-control" placeholder="Past a link to shorten it"/>
+                <span ng-if="shortenError" class="help-block">{{shortenError}}</span>
+                <div ng-if="shortenSuccess" class="well">Your shortened URL is <a href="{{shortenSuccess}}" target="_blank">{{shortenSuccess}}</a></div>
+            </div>
+            <button ng-click="shorten()" class="btn btn-info">Shorten</button>
+        </form>
     </div>
 </body>
 

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * REST controller for shortening and resolving short urls
  */
 @RestController
-@RequestMapping(value = "/shortener")
+@RequestMapping(value = "/shorten")
 public class ShortenerController {
     private final ShortenerService shortenerService;
 

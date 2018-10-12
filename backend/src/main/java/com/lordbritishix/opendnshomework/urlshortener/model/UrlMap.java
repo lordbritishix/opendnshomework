@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UrlMap {
     @Id
-    private long id;
+    private String id;
     private String originalUrl;
     private String mappedUrl;
 }

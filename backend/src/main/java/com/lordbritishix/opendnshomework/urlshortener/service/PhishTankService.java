@@ -85,7 +85,7 @@ public class PhishTankService {
         this.onlineDbUrl = String.format(onlineDatabaseNameTemplate, key);
     }
 
-    public boolean isUrlSafe(URI url) {
+    public boolean isPhish(URI url) {
         return phishInfoRepository.existsByUrl(url.toString());
     }
 

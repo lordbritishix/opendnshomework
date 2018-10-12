@@ -10,8 +10,7 @@ import java.util.List;
 import org.apache.commons.validator.routines.UrlValidator;
 
 public class UrlShortenerUtils {
-    // character space
-    private static final String CHARACTER_SPACE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789()";
+    private static final String CHARACTER_SPACE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     /**
      * Based on https://stackoverflow.com/questions/742013/how-to-code-a-url-shortener
@@ -30,9 +29,9 @@ public class UrlShortenerUtils {
         return stringBuilder.toString();
     }
 
-    public static int toBase10(String base64) {
-        int val = 0;
-        int pow = base64.length() - 1;
+    public static long toBase10(String base64) {
+        long val = 0;
+        long pow = base64.length() - 1;
         for (char c : base64.toCharArray()) {
             int idx = CHARACTER_SPACE.indexOf(c);
             val += idx * (Math.pow(64, pow));
