@@ -29,17 +29,6 @@ public class UrlShortenerUtils {
         return stringBuilder.toString();
     }
 
-    public static long toBase10(String base64) {
-        long val = 0;
-        long pow = base64.length() - 1;
-        for (char c : base64.toCharArray()) {
-            int idx = CHARACTER_SPACE.indexOf(c);
-            val += idx * (Math.pow(64, pow));
-        }
-
-        return val;
-    }
-
     public static boolean isValidUrl(String base64EncodedUrl) {
         try {
             String decodedUrl = new String(Base64.getUrlDecoder().decode(base64EncodedUrl), StandardCharsets.UTF_8);

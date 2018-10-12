@@ -30,18 +30,6 @@ public class UrlShortenerUtilsTest {
     }
 
     @Test
-    public void toBase10ProducesSameIdForSameString() {
-        assertEquals(
-                UrlShortenerUtils.toBase10("abc"), UrlShortenerUtils.toBase10("abc"));
-    }
-
-    @Test
-    public void toBase10ProducesDifferentIdForDifferentString() {
-        assertNotEquals(
-                UrlShortenerUtils.toBase10("abc"), UrlShortenerUtils.toBase10("abcd"));
-    }
-
-    @Test
     public void isValidReturnsFalseIfNotBase64Encoded() {
         String notBase64EncodedUrl = "http://google.com";
         assertFalse(UrlShortenerUtils.isValidUrl(notBase64EncodedUrl));
