@@ -13,6 +13,23 @@ The service should provide a simple front page with an input for a URL to be sho
 the shortened URL. Accessing the shortened url should redirect to the original. There’s no need to get fancy with the 
 visual design if you don’t want to.
 
+****How to run****
+* Download and install JDK 1.8 https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+* Download and install maven
+* Using the command prompt, do:
+```
+$ cd opendnshomework/backend
+$ mvn clean spring-boot:run
+```
+* When it is running, you should see 
+```
+2018-10-12 21:11:25.310  INFO 635 --- [  restartedMain] c.l.o.u.UrlShortenerApplication          : Started UrlShortenerApplication in 6.248 seconds (JVM running for 6.625)
+```
+* Open the web browser and visit 
+```
+http://localhost:8080/
+```
+
 ****Technologies Used****
 * Spring Boot, running embedded Jetty, using Hikari Connection Pooling
 * Spring MVC
@@ -33,7 +50,7 @@ make the application immediately available to detect phishing sites.
 * The service updates the local copy of the phishing database every hour. It is done on a separate thread and is a 
 synchronized operation.
 
-****Improvements****
+****Improvements and Known Quirks****
 * Polishing of the UI
 * The generated short URL could be shorter. The short URL is derived from a 64-bit data so it's longer than your 
 traditional short URL.
